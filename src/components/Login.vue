@@ -7,7 +7,8 @@
             </div>
 
             <!-- 登录表单区 -->
-                <el-form  label-width="0px" class="login_form" 
+                <el-form  label-width="0px" 
+                          class="login_form" 
                           ref="loginFormRef"
                           :model="loginForm" 
                           :rules="loginFormRules">
