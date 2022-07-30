@@ -15,11 +15,9 @@
         <!-- clearable属性: 即得到一个可清空的输入框 -->
         <!-- clear: 在点击由 clearable 属性生成的清空按钮时触发 -->
         <el-col :span="7">
-          <el-input placeholder="请输入内容" 
-          v-model="queryInfo.query" 
-          clearable 
-          @clear=getUserList()>
-            <el-button slot="append" icon="el-icon-search" @click="getUserList()"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear=getUserList()>
+            <el-button slot="append" icon="el-icon-search" @click="getUserList()">
+            </el-button>
           </el-input>
         </el-col>
 
@@ -58,22 +56,16 @@
           <template slot-scope="scope">
             <!-- {{scope.row.id}} -->
             <!-- 修改 -->
-            <el-button type="primary" 
-            icon="el-icon-edit" 
-            size="mini" 
-            @click="showEditDialog(scope.row.id)">
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)">
             </el-button>
             <!-- 删除 -->
-            <el-button type="danger" 
-            icon="el-icon-delete" 
-            size="mini" 
-            @click="removeUserById(scope.row.id)">
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)">
             </el-button>
             <!-- 分配权限 -->
             <!-- el-tooltip：鼠标放上面显示提示信息 -->
             <!-- enterable: 鼠标是否可进入到 tooltip 中 -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini">
+              <el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetUserRole(scope.row)">
               </el-button>
             </el-tooltip>
           </template>
@@ -85,26 +77,19 @@
       <!-- size-change： 多少条/每页 -->
       <!-- current-change:监听页码值发生改变 -->
       <!-- layout: 页面展示的各种数据 -->
-      <el-pagination @size-change="handleSizeChange"
-       @current-change="handleCurrentChange"
-        :current-page="queryInfo.pagenum" 
-        :page-sizes="[1, 2, 5, 10]" 
-        :page-size="queryInfo.pagesize"
-        layout="total, sizes, prev, pager, next, jumper" 
-        :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum" :page-sizes="[1, 2, 5, 10]" :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </el-card>
 
     <!-- 添加用户的对话框 -->
     <el-dialog title="添加用户" 
-               :visible.sync="addDialogVisible" 
-               width="50%" 
-               @close="addDialogClosed">
+    :visible.sync="addDialogVisible" 
+    width="50%" 
+    @close="addDialogClosed">
       <!-- 内容主题区 -->
-      <el-form :model="addForm" 
-               :rules="addFormRules" 
-               ref="addFormRef" 
-               label-width="70px">
+      <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="addForm.username"></el-input>
         </el-form-item>
@@ -129,20 +114,17 @@
     <!-- @close功能，重置表单验证。。。。。。 -->
     <!-- disabled: 用户名禁止编辑属性 -->
     <el-dialog title="修改用户" 
-               :visible.sync="editDialogVisible" 
-               width="50%" 
-               @close="editDialogClosed" >
-      <el-form :model="editForm" 
-               :rules="addFormRules" 
-               ref="editFormRef" 
-               label-width="70px">
-        <el-form-item label="用户名" >
+    :visible.sync="editDialogVisible" 
+    width="50%" 
+    @close="editDialogClosed">
+      <el-form :model="editForm" :rules="addFormRules" ref="editFormRef" label-width="70px">
+        <el-form-item label="用户名">
           <el-input disabled v-model="editForm.username"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="editForm.email"></el-input>
         </el-form-item>
-         <el-form-item label="手机号" prop="mobile">
+        <el-form-item label="手机号" prop="mobile">
           <el-input v-model="editForm.mobile"></el-input>
         </el-form-item>
       </el-form>
@@ -150,6 +132,34 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="editUser">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 分配角色的对话框 -->
+    <!-- el-select v-model：保存选到的值id -->
+    <el-dialog title="分配角色" 
+    :visible.sync="setRoleDialogVisible" 
+    width="50%" 
+    @close="setRoleDialogClose">
+      <div>
+        <p>当前的用户：{{userInfo.username}}</p>
+        <p>当前的角色：{{userInfo.role_name}}</p>
+        <p>分配新角色：
+          <el-select v-model="selectedRoleId" 
+                     placeholder="请选择">
+            <el-option v-for="item in rolesList" 
+            :key="item.id" 
+            :label="item.roleName" 
+            :value="item.id">
+            </el-option>
+          </el-select>
+        </p>
+      </div>
+
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="setRole()">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -191,6 +201,7 @@ export default {
 
       addDialogVisible:false,//控制添加对话框的显示与隐藏
       editDialogVisible:false,//控制修改对话框的显示与隐藏
+      setRoleDialogVisible:false,//控制分配角色对话框的显示与隐藏
 
       addForm:{
         username:'',
@@ -204,11 +215,18 @@ export default {
         email:'',
         mobile:'',
       },//保存修改用户的表单数据
+      userInfo:{
+        id:'',
+        username:'',
+        role_name:'',
+      },//保存分配角色的用户数据
+      rolesList: [],//存放所有角色列表数据
+      selectedRoleId: '',//已选中的ID值
 
       addFormRules:{
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 1, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+          { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -277,6 +295,12 @@ export default {
     },
     editDialogClosed(){
       this.$refs.editFormRef.resetFields();
+    },
+    setRoleDialogClose(){
+      //监听分配角色对话框的关闭事件
+      this.selectedRoleId = '';
+      this.userInfo = '';
+
     },
     addUser(){
       this.$refs.addFormRef.validate(async valid => {
@@ -362,6 +386,35 @@ export default {
         this.getUserList();
 
     },
+    async  showSetUserRole(userInfo){
+      // 展示分配角色
+      this.userInfo = userInfo;
+      // console.log(userInfo);
+
+      // 获取所有角色的列表信息
+      const { data : res } = await this.$http.get('roles');
+      if(res.meta.status !== 200) return this.$message.error("获取角色列表失败");
+      this.rolesList = res.data;
+      // console.log( this.rolesList );
+
+      this.setRoleDialogVisible = true;
+    },
+    async setRole(){
+      // 设置新的角色
+      if (!this.selectedRoleId) {
+        return this.$message.error('请选择要分配的角色！')
+      }
+      console.log( this.selectedRoleId );
+      const { data:res } = await this.$http.put(`users/${this.userInfo.id}/role`,{
+          rid: this.selectedRoleId});
+      if(res.meta.status !== 200) return this.$message.error('修改角色信息失败');
+      this.$message.success('修改角色信息成功');
+      console.log(res);
+
+      this.getUserList();
+      
+      this.setRoleDialogVisible = false;
+    }
 
 
   },
