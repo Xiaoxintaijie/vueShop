@@ -65,7 +65,10 @@
             <!-- el-tooltip：鼠标放上面显示提示信息 -->
             <!-- enterable: 鼠标是否可进入到 tooltip 中 -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetUserRole(scope.row)">
+              <el-button type="warning" 
+                         icon="el-icon-setting" 
+                         size="mini" 
+                         @click="showSetUserRole(scope.row)">
               </el-button>
             </el-tooltip>
           </template>
@@ -77,9 +80,13 @@
       <!-- size-change： 多少条/每页 -->
       <!-- current-change:监听页码值发生改变 -->
       <!-- layout: 页面展示的各种数据 -->
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="queryInfo.pagenum" :page-sizes="[1, 2, 5, 10]" :page-size="queryInfo.pagesize"
-        layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <el-pagination @size-change="handleSizeChange" 
+                     @current-change="handleCurrentChange"
+                     :current-page="queryInfo.pagenum" 
+                     :page-sizes="[1, 2, 5, 10]" 
+                     :page-size="queryInfo.pagesize"
+                      layout="total, sizes, prev, pager, next, jumper" 
+                      :total="total">
       </el-pagination>
     </el-card>
 

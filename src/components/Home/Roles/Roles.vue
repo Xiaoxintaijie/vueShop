@@ -40,8 +40,9 @@
               <!-- 渲染二级和三级权限 -->
               <!-- 把19做分成24列 -->
               <el-col :span="19">
-                <el-row v-for="(item2,index2) in item1.children" :key="item2.id"
-                  :class="[index2 === 0 ? ' ' : 'bdtop','vcenter']">
+                <el-row v-for="(item2,index2) in item1.children" 
+                       :key="item2.id"
+                       :class="[index2 === 0 ? ' ' : 'bdtop','vcenter']">
 
                   <el-col :span="6">
                     <el-tag type="success" closable @close="removeRightById(scope.row,item2.id)">
@@ -381,6 +382,7 @@ export default {
       this.$message.success(res.meta.msg);
       // console.log(res);
  
+      // 重新刷新列表，对应展开列数据会重新渲染
       this.getRolesList();
 
       this.setDialogVisible = false;

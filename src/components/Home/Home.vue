@@ -84,7 +84,7 @@ export default {
             // '3': 'iconfont icon-danju',
             // '4': 'iconfont icon-baobiao',
           },  //存放自定义图标
-          isCollapse:false,  //默认不折叠
+          isCollapse:true,  //默认折叠
           activePath:' ',    //保存被激活的链接地址
         }
     },
