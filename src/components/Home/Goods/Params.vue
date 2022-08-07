@@ -241,6 +241,7 @@ export default {
     computed: {
         isBtnDisabled(){
         // 如果按钮需要被禁用，返回true
+        // 如果选择三级参数，才能展开面板
           return (this.selectedKeys.length !== 3 ? true :  false);
         },
         cateId(){
@@ -265,9 +266,9 @@ export default {
         },
         handleChange(){
             // 级联选择器选中后会打印这个函数
-            // 控制智能选择三级分类
+            // 控制只能选择三级分类
 
-            // 先点击三级分类再点击二级分类，之前的列表数据未清空,
+            //解决BUG： 先点击三级分类再点击二级分类，之前的列表数据未清空,
             // 只需要清空以前的manyTableData、onlyTableData
 
             this.getParamsData();
@@ -276,7 +277,6 @@ export default {
             // tab页签点击事件处理函数
             // console.log(this.activeName);
             this.getParamsData();
-
         },
         async handleInputConfirm(input){
             // 失去焦点或者回车键触发本次事件-> 文本框变成按钮

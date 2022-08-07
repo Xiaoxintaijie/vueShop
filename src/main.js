@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import TreeTable from 'vue-table-with-tree-grid'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.snow.css'
+
 
 import './plugins/element.js'
 
@@ -27,6 +30,25 @@ Vue.prototype.$http = axios;
 
 // 注册全局组件
 Vue.component("tree-table",TreeTable)
+
+// 全局定义一个过滤器
+Vue.filter('dateformat',function(originVal){
+const dt = new Date(originVal)
+
+// padStart()是es2017字符串补全长度的功能
+const y = dt.getFullYear();
+const m = (dt.getMonth() + 1 + '').padStart(2, '0');
+const d = (dt.getDate() + '').padStart(2, '0');
+const hh = (dt.getHours() + '').padStart(2, '0')
+const mm = (dt.getMinutes() + '').padStart(2, '0')
+const ss = (dt.getSeconds() + '').padStart(2, '0')
+
+// 拼接成一个完整的字符串
+return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+})
+
+// 注册富文本编辑器为全局可用组件
+Vue.use(VueQuillEditor)
 
 Vue.config.productionTip = false
 

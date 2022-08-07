@@ -15,7 +15,7 @@
         <!-- clearable属性: 即得到一个可清空的输入框 -->
         <!-- clear: 在点击由 clearable 属性生成的清空按钮时触发 -->
         <el-col :span="7">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear=getUserList()>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserList()">
             <el-button slot="append" icon="el-icon-search" @click="getUserList()">
             </el-button>
           </el-input>
@@ -377,12 +377,10 @@ export default {
         if (res.meta.status !== 200) return this.$message.error('删除用户信息失败');
         this.$message.success('删除用户信息成功');
         
-        console.log(res);
-        console.log(this.userList);
+        // console.log(res);
+        // console.log(this.userList);
 
-         // 添加用户成功，关闭对话框
-        this.editDialogVisible = false;
-
+       
         // 一页一条数据的情况：判断当前展示的用户数据是否只有一条
         if(this.userList.length === 1){
           //若是，则继续判断页码是否已经在第一页，若是则保持在该页,若否则-1
@@ -411,12 +409,12 @@ export default {
       if (!this.selectedRoleId) {
         return this.$message.error('请选择要分配的角色！')
       }
-      console.log( this.selectedRoleId );
+      // console.log( this.selectedRoleId );
       const { data:res } = await this.$http.put(`users/${this.userInfo.id}/role`,{
           rid: this.selectedRoleId});
       if(res.meta.status !== 200) return this.$message.error('修改角色信息失败');
       this.$message.success('修改角色信息成功');
-      console.log(res);
+      // console.log(res);
 
       this.getUserList();
       

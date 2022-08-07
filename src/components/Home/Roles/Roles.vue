@@ -87,7 +87,7 @@
             </el-button>
 
             <el-button type="danger" icon="el-icon-delete" size="mini" 
-            @click="removeUserById(scope.row.id)">
+            @click="removeRolesById(scope.row.id)">
               删除
             </el-button>
 
@@ -283,7 +283,7 @@ export default {
         this.getRolesList();
       })
     },
-    async  removeUserById(id){
+    async removeRolesById(id){
       // 根据ID删除对应的角色信息
       // 首先确认是否删除
       const confirmResult = await this.$confirm(
@@ -324,7 +324,7 @@ export default {
       const { data:res } = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
       if (res.meta.status !== 200) return this.$message.error('删除权限信息失败');
       this.$message.success('删除权限信息成功');
-      console.log(res);
+      // console.log(res);
 
       // 不建议重新刷新
       // delete删除会返回roleid所有权限

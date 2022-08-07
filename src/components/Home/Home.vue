@@ -1,7 +1,7 @@
 <template>
     <el-container class="home_container">
         <!-- 头部区域 -->
-        <el-header>
+        <el-header >
             <div>
                 <img src="../../assets/img/heima.png" alt="" />
                 <span>电商后台管理系统</span>
@@ -11,7 +11,8 @@
         <!-- 页面主体 -->
         <el-container>
             <!-- 侧边栏 -->
-            <el-aside width="isCollapse ? '64px' : '200px'"  >
+            <el-aside 
+                      width="isCollapse ? '64px' : '200px'"  >
                 <div class="toggle-button" @click="toggleCollapse">|||</div>
                 <!-- active-text-color:激活文本颜色 -->
                 <!-- unique-opened: 设置打开一级菜单的时候每次只展开一项 -->
