@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 import Login from '../components/Login.vue'
 import Home from '../components/Home/Home.vue'
 import Welcome from '../components/Home/Welcome.vue'
@@ -10,6 +13,8 @@ import Categories from '../components/Home/Goods/Categories.vue'
 import Params from '../components/Home/Goods/Params.vue'
 import Goods from '../components/Home/Goods/Goods.vue'
 import Add from '../components/Home/Goods/Add.vue'
+import Orders from '../components/Home/Orders/Orders.vue'
+import Reports from '../components/Home/Reports/Reports.vue'
 
 Vue.use(VueRouter)
 
@@ -60,6 +65,15 @@ const routes = [
         path: '/add',
         component: Add,
       },
+      {
+        path: '/orders',
+        component: Orders,
+      },
+      {
+        path: '/reports',
+        component: Reports,
+      },
+      
       
     ]
   },
@@ -69,9 +83,19 @@ const router = new VueRouter({
   routes,
 })
 
+// 配置一下进度条,不配置会报错的
+// inc()随机增长进度条，注意，这个方法永远不会让进度条达到100%。
+//showSpinner: 隐藏环形进度条
+// 颜色默认蓝色
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
+
 // 前置导航守卫：路由跳转之前做的检查及操作 控制页面访问权限
-router.beforeEach((to,from,next) => {
+router.beforeEach(async(to,from,next) => {
   // to:去哪 from:从哪来 next：函数，表示放行
+  
+  //  引入进度条
+  NProgress.start()
 
   // 如果用户从登录页来访问,直接进行下一步
   if(to.path=== '/login') return next();
@@ -82,5 +106,12 @@ router.beforeEach((to,from,next) => {
 
   next();
 })
+
+// 全局后置路由守卫: 初始化时执行，每次路由切换后执行
+// 后置守卫没有 next 因为它已经是在路由跳转后了没必要进行路由跳转的放行了
+router.afterEach(() => {
+  NProgress.done()
+})
+
 
 export default router

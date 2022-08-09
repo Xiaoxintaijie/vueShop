@@ -3,7 +3,7 @@
         <!-- 头部区域 -->
         <el-header >
             <div>
-                <img src="../../assets/img/heima.png" alt="" />
+                <img src="../../assets/img/maomao.png" alt="" />
                 <span>电商后台管理系统</span>
             </div>
             <el-button type="info" @click="logout">退出</el-button>
@@ -19,9 +19,9 @@
                 <!-- collapse:默认菜单不折叠，可以选择让它折叠 -->
                 <!-- router:是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转 -->
                 <!-- default-active：当前激活菜单的 index -->
-                <el-menu background-color="#333744" 
-                         text-color="#fff" 
-                         active-text-color="#409EFF" 
+                <el-menu background-color="#f7e8aa" 
+                         text-color="#619ac3" 
+                         active-text-color="#f17666" 
                          :unique-opened="true" 
                          :collapse="isCollapse" 
                          :collapse-transition = "false" 
@@ -131,13 +131,13 @@ export default {
     height:100%;
 }
 .el-header{
-    background-color: #373d41;
+    background-color: #525288;
     display:flex;
     justify-content: space-between;
     padding-left:0px;
     // align-items元素在辅轴上如何对齐
     align-items: center;
-    color: #fff;
+    color: #619ac3;
     font-size: 20px;
     > div {
         display: flex;
@@ -148,7 +148,7 @@ export default {
     }
 }
 .el-aside{
-    background-color: #333744;
+    background-color: #f7e8aa;
     .el-menu {
         // 解决菜单和侧边栏右侧对不齐的原因：清除原本附带的样式
         border-right: 0px;
@@ -156,7 +156,7 @@ export default {
 
 }
 .el-main{
-    background-color: #EAEDF1;
+    background-color: #efafad;
 }
 
 // 让一级菜单的图标和文本拉开距离
@@ -175,7 +175,7 @@ export default {
 // }
 
 .toggle-button{
-    background-color: #4A5064;
+    background-color: #f17666;
     font-size: 10px;
     line-height: 24px;
     color: #fff;

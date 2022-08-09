@@ -3,7 +3,7 @@
         <div class="login_box">
             <div class="avatar_box">
                 <!-- 头像区 -->
-                <img src="../assets/img/logo.png" alt="图标"/>
+                <img src="../assets/img/first.png" alt="图标"/>
             </div>
 
             <!-- 登录表单区 -->
@@ -20,9 +20,8 @@
                     </el-form-item>
                     <el-form-item  prop="password">
                         <!-- 密码 -->
-                        <el-input prefix-icon="iconfont icon-3702mima" 
-                                  suffix-icon="iconfont icon-showpassword"
-                                  type="password" 
+                        <el-input prefix-icon="iconfont icon-3702mima"                                   
+                                  show-password
                                   v-model="loginForm.password">
                         </el-input>
                     </el-form-item>
@@ -70,6 +69,7 @@ export default {
                 // console.log(this);
                 if(res.meta.status !== 200) return this.$message.error('登陆失败');
                 this.$message.success('登录成功');
+                
                 // 设置token,保存token到sessionStorage中
                 window.sessionStorage.setItem('token',res.data.token);
                 // 页面跳转到后台主页
@@ -84,14 +84,14 @@ export default {
 
 <style lang="less" scoped>
 .login_container{
-    background-color: #2b4b6b;
+    background-color: #5c2223;
 // 占满全屏
     height:100%;
 }
 .login_box{
    width: 450px;
    height: 300px;
-   background-color: #fff; 
+   background-color: #c04851; 
    border-radius: 3px;
 //    位置调整到中央
    position:absolute;

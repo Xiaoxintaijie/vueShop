@@ -25,8 +25,16 @@
                 <!-- show-index 显示数据索引列 -->
                 <!--  index-text 设置数据索引昵称 -->
                 <!-- :is-fold  树形表格中父级是否默认折叠 -->
-                <tree-table :data="catelist" :columns="columns" :selection-type="false" :expand-type="false" show-index
-                    index-text='#' border class="treeTable">
+                <!-- selection-type="false 有>箭头，可以展开 -->
+                <!-- expand-type="false 有复选框 可以选中 -->
+                <tree-table :data="catelist" 
+                :columns="columns" 
+                :selection-type="false" 
+                :expand-type="false" 
+                show-index
+                index-text='#' 
+                border 
+                class="treeTable">
                     <!-- 模板一：是否有效 -->
                     <template slot="isok" slot-scope="scope">
                         <i class="el-icon-success" v-if="scope.row.cat_deleted === false" style="color: lightgreen"></i>
@@ -55,9 +63,13 @@
 
         <section>
              <!-- 分页区 -->
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="queryInfo.pagenum" :page-sizes="[3, 5, 10, 15]" :page-size="queryInfo.pagesize"
-                layout="total, sizes, prev, pager, next, jumper" :total="total">
+            <el-pagination @size-change="handleSizeChange" 
+                 @current-change="handleCurrentChange"
+                :current-page="queryInfo.pagenum" 
+                :page-sizes="[3, 5, 10, 15]" 
+                :page-size="queryInfo.pagesize"
+                layout="total, sizes, prev, pager, next, jumper"
+                 :total="total">
             </el-pagination>
         </section>
 
@@ -77,7 +89,9 @@
                     <!-- value / v-model 选中项绑定值 -->
                     <!-- props: 有关菜单配置对象 -->
                     <!-- clearable 清空选项 小叉 -->
-                    <el-cascader v-model="selectedKeys" :options="parentCateList" :props="cascaderProps"
+                    <el-cascader v-model="selectedKeys" 
+                    :options="parentCateList" 
+                    :props="cascaderProps"
                         @change="parentCateChanged" clearable>
                     </el-cascader>
                 </el-form-item>
@@ -94,7 +108,10 @@
         <!-- 编辑分类的对话框 -->
         <el-dialog title="编辑分类" :visible.sync="editDialogVisible" width="50%">
             <!-- 主题内容区 -->
-            <el-form :model="editForm" :rules="addFormRules" ref="editFormRef" label-width="100px">
+            <el-form :model="editForm" 
+            :rules="addFormRules" 
+            ref="editFormRef" 
+            label-width="100px">
                 <el-form-item label="分类名称" prop="cat_name">
                     <el-input v-model="editForm.cat_name"></el-input>
                 </el-form-item>
