@@ -61,13 +61,10 @@
 </template>
 
 <script>
-// import Welcome from './Welcome.vue';
+
 
 export default {
     name:'Home',
-    // components:{
-    //     Welcome,
-    // },
     data(){
         return{
           menulist:[],  //存放菜单数组
@@ -103,7 +100,7 @@ export default {
             window.sessionStorage.clear();
             this.$router.push('/login');
         },
-       async getMenuList(){
+        async getMenuList(){
             // 获取所有请求
             const { data : res} = await this.$http.get('menus');
             if(res.meta.status !== 200) return this.$message.error(res.meta.msg);

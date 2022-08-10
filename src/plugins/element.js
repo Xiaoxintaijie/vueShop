@@ -38,6 +38,8 @@ import {
     Checkbox,
     CheckboxGroup,
     Upload,
+    Divider,
+    Link,
  } from 'element-ui'
 
 
@@ -77,6 +79,8 @@ Vue.use(Step)
 Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
 Vue.use(Upload)
+Vue.use(Divider)
+Vue.use(Link)
 
 // 挂载
 Vue.prototype.$message = Message

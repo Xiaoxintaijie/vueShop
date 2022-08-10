@@ -70,7 +70,7 @@ export default {
                 if(res.meta.status !== 200) return this.$message.error('登陆失败');
                 this.$message.success('登录成功');
                 
-                // 设置token,保存token到sessionStorage中
+                // 设置 token,保存 token到 sessionStorage中
                 window.sessionStorage.setItem('token',res.data.token);
                 // 页面跳转到后台主页
                 this.$router.push('/home');

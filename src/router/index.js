@@ -74,7 +74,6 @@ const routes = [
         component: Reports,
       },
       
-      
     ]
   },
 ]
